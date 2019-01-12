@@ -3,21 +3,28 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 
 Vue.use(Router)
-
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
-  ]
+let router = new Router({
+        routes: [{
+                path: '/',
+                name: 'home',
+                component: Home
+        },
+        {
+                path: '/search',
+                name: 'Search',
+                component: () => import( /* webpackChunkName: "about" */
+                        './views/Search.vue')
+        },
+        {
+                path: '/about',
+                name: 'about',
+                component: () => import( /* webpackChunkName: "about" */
+                        './views/About.vue')
+        }
+        ]
 })
+//全局路由加载之前(正式)
+router.beforeEach((to, from, next) => {
+        return next();
+})
+export default router
