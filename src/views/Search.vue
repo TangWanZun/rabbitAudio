@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       // formData: list,
-      formData: [],
+      formData:this.$store.state.queryList,
       searchData: "",
       showDialog: false,
       audioData: {},
@@ -81,7 +81,7 @@ export default {
       mescrollUp: {
         // 上拉加载的配置
         callback: this.upCallback,
-        auto: true,
+        auto: false,
         page: {
 					num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
 					size: 30, //每页数据条数,默认10
@@ -107,11 +107,12 @@ export default {
       })
         .then(res => {
           this.formData = this.formData.concat(res.lists);
+          //更新到缓存中去
+          this.$store.commit('setQueryList',this.formData);
           // 数据渲染成功后,隐藏下拉刷新的状态
           this.$nextTick(() => {
             mescroll.endBySize(res.lists.length,res.total)
           })
-          console.log(res);
         })
         .catch(error => {
           console.error(error);

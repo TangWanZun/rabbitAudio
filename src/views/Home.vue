@@ -67,7 +67,7 @@ export default {
   },
   mounted() {
     // this.$alert();
-    console.log(this.$store.state.playAudio);
+    // console.log(this.$store.state.playAudio);
   },
   methods: {
     /**
